@@ -40,5 +40,24 @@ class DeviseCreateAdmins < ActiveRecord::Migration[6.1]
     add_index :admins, :reset_password_token, unique: true
     # add_index :admins, :confirmation_token,   unique: true
     # add_index :admins, :unlock_token,         unique: true
+
+    create_table :items do |t|
+      ## ジャンルID
+      t.integer  :genre_id, null: false
+      ## 商品名
+      t.string :name, null: false
+      ## 商品説明文
+      t.text :introduction, null: false
+      ## 税抜き価格
+      t.integer :price, null: false
+      ## 販売ステータス
+      t.boolean :is_active, null: false
+    end
+
+    create_table :genres do |t|
+      ## ジャンル名
+      t.string :name, null: false
+    end
+
   end
 end
