@@ -58,24 +58,5 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
     # add_index :customers, :confirmation_token,   unique: true
     # add_index :customers, :unlock_token,         unique: true
 
-    create_table :addresses do |t|
-      ## 会員ID
-      t.integer :customer_id, null: false
-      ## 宛名
-      t.string :name,         null: false
-      ## 郵便番号
-      t.string :postal_code,  null: false
-      ## 住所
-      t.string :address,      null: false
-    end
-
-    create_table :addresses do |t|
-      ## 商品ID
-      t.integer :item_id,     null: false
-      ## 会員ID
-      t.integer :customer_id, null: false
-      ## 数量
-      t.integer :amount,      null: false
-    end
   end
 end
