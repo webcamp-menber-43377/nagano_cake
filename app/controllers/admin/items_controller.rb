@@ -20,14 +20,17 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  # def add_tax_price
-  #   (self.price * 1.10).round
-  # end
-
   def edit
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to admin_item_path(@item.id)
+    else
+      render :edit
+    end
   end
 
   private
