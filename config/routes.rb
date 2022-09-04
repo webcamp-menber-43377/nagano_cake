@@ -17,12 +17,10 @@ Rails.application.routes.draw do
 
   namespace :public do
     root to: "homes#top"
-    # get 'homes/top'
     get "/about" => "homes#about", as: "about"
   end
 
   namespace :admin do
-    # get 'homes/top'
     resources :genres, only: [:index, :create, :edit, :update]
     resources :items, only: [:new, :index, :create, :show, :edit, :update]
     resources :customers, only: [:index, :new, :create, :show]
