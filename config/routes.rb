@@ -18,12 +18,13 @@ Rails.application.routes.draw do
   namespace :public do
     root to: "homes#top"
     get "/about" => "homes#about", as: "about"
+    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
   end
 
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :items, only: [:new, :index, :create, :show, :edit, :update]
-    resources :customers, only: [:index, :new, :create, :show]
+    resources :customers, only: [:index, :new, :create, :show, :edit]
   end
 
 end
