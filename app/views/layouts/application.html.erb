@@ -23,17 +23,17 @@
             <% if customers_signed_in? %>
               <!--マイページ-->
               <li>
-                <%= link_to "マイページ", public_customer_path, class: 'nav-link text-light' do %>
+                <%= link_to "マイページ", my_page_path, class: 'nav-link text-light' do %>
                 <% end %>
               </li>
               <!--商品一覧-->
               <li>
-                <%= link_to "商品一覧", public_items_path, class: 'nav-link text-light' do %>
+                <%= link_to "商品一覧", items_path, class: 'nav-link text-light' do %>
                 <% end %>
               </li>
               <!--カート-->
               <li>
-                <%= link_to "カート", public_cart_items_path, class: 'nav-link text-light' do %>
+                <%= link_to "カート", cart_items_path, class: 'nav-link text-light' do %>
                 <% end %>
               </li>
               <!--ログアウト-->

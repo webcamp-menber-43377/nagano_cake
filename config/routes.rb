@@ -14,13 +14,16 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
+  # root to: "public/homes#top"
+  # get "/about" => "public/homes#about", as: "about"
 
-  namespace :public do
+  scope module: :public do
     root to: "homes#top"
     get "/about" => "homes#about", as: "about"
     resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
     resources :items, only: [:index, :show]
-    resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw]
+    get "/customers/my_page" => "customers#show", as: "my_page"
+    resources :customers, only: [:edit, :update, :unsubscribe, :withdraw]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
   end
 
