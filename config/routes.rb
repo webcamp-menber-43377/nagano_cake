@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # 顧客用
   # URL /customers/sign_in ...
-  devise_for :customers,skip: [:passwords], controllers: {
+  devise_for :customers, skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get "/about" => "homes#about", as: "about"
     resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
+    resources :items, only: [:index, :show]
+    resources :customers, only: [:show, :edit, :update, :unsubscribe, :withdraw]
+    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
   end
 
   namespace :admin do
