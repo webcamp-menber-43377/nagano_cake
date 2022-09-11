@@ -1,1 +1,23 @@
-<h2>商品一覧</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'list', genres: @genres %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>商品一覧</h2> (全X件)
+      <div class="row">
+        <% @items.each do |item| %>
+          <div class="col-md-3">
+            <div>
+              <%= image_tag item.image, size: "200x200" %><br>
+              <%= link_to item.name, item_path(item.id) %><br>
+              ￥<%= (item.price * 1.1).round.to_s(:delimited) %><br>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @items %>
+      </div>
+    </div>
+  </div>
+</div>

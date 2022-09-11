@@ -4,7 +4,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new(item_params)
+    @item = Item.new
   end
 
   def create
