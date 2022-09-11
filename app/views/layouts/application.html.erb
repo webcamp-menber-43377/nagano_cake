@@ -20,72 +20,85 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
-            <% if customers_signed_in? %>
+            <% if customer_signed_in? %>
               <!--マイページ-->
               <li>
-                <%= link_to "マイページ", my_page_path, class: 'nav-link text-light' do %>
+                <%= link_to my_page_path, class: 'nav-link text-light' do %>
+                マイページ
                 <% end %>
               </li>
               <!--商品一覧-->
               <li>
-                <%= link_to "商品一覧", items_path, class: 'nav-link text-light' do %>
+                <%= link_to items_path, class: 'nav-link text-light' do %>
+                商品一覧
                 <% end %>
               </li>
               <!--カート-->
               <li>
-                <%= link_to "カート", cart_items_path, class: 'nav-link text-light' do %>
+                <%= link_to cart_items_path, class: 'nav-link text-light' do %>
+                カート
                 <% end %>
               </li>
               <!--ログアウト-->
               <li>
-                <%= link_to "ログアウト", destroy_customer_session_path, class: 'nav-link text-light', method: :delete do %>
+                <%= link_to destroy_customer_session_path, class: 'nav-link text-light', method: :delete do %>
+                ログアウト
                 <% end %>
               </li>
             <% elsif admin_signed_in? %>
               <!--商品一覧-->
               <li>
-                <%= link_to "商品一覧", admin_items_path, class: 'nav-link text-light' do %>
+                <%= link_to admin_items_path, class: 'nav-link text-light' do %>
+                商品一覧
                 <% end %>
               </li>
               <!--会員一覧-->
               <li>
-                <%= link_to "会員一覧", admin_customers_path, class: 'nav-link text-light' do %>
+                <%= link_to admin_customers_path, class: 'nav-link text-light' do %>
+                会員一覧
                 <% end %>
               </li>
               <!--注文履歴一覧-->
               <li>
-                <%= link_to "注文履歴一覧", admin_root_path, class: 'nav-link text-light' do %>
+                <%= link_to admin_root_path, class: 'nav-link text-light' do %>
+                注文履歴一覧
                 <% end %>
               </li>
               <!--ジャンル一覧-->
               <li>
-                <%= link_to "ジャンル一覧", admin_genres_path, class: 'nav-link text-light' do %>
+                <%= link_to admin_genres_path, class: 'nav-link text-light' do %>
+                ジャンル一覧
                 <% end %>
               </li>
               <!--ログアウト-->
               <li>
-                <%= link_to "ログアウト", destroy_admin_session_path, class: 'nav-link text-light', method: :delete do %>
+                <%= link_to destroy_admin_session_path, class: 'nav-link text-light', method: :delete do %>
+                ログアウト
                 <% end %>
               </li>
             <% else %>
               <!--About-->
               <li>
-                <%= link_to "About", public_about_path, class: 'nav-link text-light' do %>
+                <%= link_to about_path, class: 'nav-link text-light' do %>
+                About
                 <% end %>
               </li>
               <!--商品一覧-->
               <li>
-                <%= link_to "商品一覧", public_items_path, class: 'nav-link text-light' do %>
+                <%= link_to items_path, class: 'nav-link text-light' do %>
+                商品一覧
                 <% end %>
               </li>
               <!--新規登録-->
               <li>
-                <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-light' do %>
+                <%= link_to new_customer_registration_path, class: 'nav-link text-light' do %>
+                新規登録
                 <% end %>
               </li>
               <!--ログイン-->
               <li>
-                <%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-light' do %>
+                <%= link_to new_customer_session_path, class: 'nav-link text-light' do %>
+                ログイン
                 <% end %>
               </li>
             <% end %>
