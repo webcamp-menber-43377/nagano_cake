@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get "/customers/my_page" => "customers#show", as: "my_page"
     resources :customers, only: [:edit, :update, :unsubscribe, :withdraw]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 
   namespace :admin do
