@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
     resources :items, only: [:index, :show]
     get "/customers/my_page" => "customers#show", as: "my_page"
-    resources :customers, only: [:edit, :update, :unsubscribe, :withdraw]
+    get "/customers/information/edit" => "customers#edit", as: "edit_my_page"
+    patch "/customers/information" => "customers#update"
+    put  "/customers/information" => "customers#update"
+    get "/customers/unsubscribe" => "customers#unsubscribe"
+    resources :customers, only: [:withdraw]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
