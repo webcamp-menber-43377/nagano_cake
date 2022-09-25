@@ -17,14 +17,17 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get "/about" => "homes#about", as: "about"
-    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
-    resources :items, only: [:index, :show]
     get "/customers/my_page" => "customers#show", as: "my_page"
     get "/customers/information/edit" => "customers#edit", as: "edit_my_page"
     patch "/customers/information" => "customers#update"
     put  "/customers/information" => "customers#update"
+    # ↓ 顧客の退会確認画面
     get "/customers/unsubscribe" => "customers#unsubscribe"
-    resources :customers, only: [:withdraw]
+    # ↓ 顧客の退会処理(ステータスの更新)
+    patch "/customers/withdraw" => "customers#withdraw"
+
+    resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
+    resources :items, only: [:index, :show]
     resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
