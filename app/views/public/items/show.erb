@@ -1,10 +1,22 @@
+<!--商品詳細-->
+
 <div class="container">
   <div class="row">
     <div class="col-md-3">
       <%= render 'list', genres: @genres %>
     </div>
-  </div>
-  <div class="col-md-8 offset-md-1">
-    <h2>商品詳細</h2>
+
+    <div class="col-md-2 offset-md-1">
+      <%= image_tag @item.image %>
+    </div>
+
+    <div class="col-md-5 offset-md-1">
+      <h4><%= @item.name %></h4>
+      <%= @item.introduction %><br>
+      ￥<%= (@item.price * 1.1).round.to_s(:delimited) %>(税込み)<br>
+      <!--個数選択（プルダウン）-->
+      <!--カートに入れる（緑ボタン）-->
+    </div>
+
   </div>
 </div>
