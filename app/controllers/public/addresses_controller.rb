@@ -9,7 +9,8 @@ class Public::AddressesController < ApplicationController
 
   def create
     @address = Address.new(address_params)
-    @address.customer_id = current_customer
+    # @address.customer_id = current_customer
+    @address.customer_id = current_customer.id
     if @address.save
       redirect_to addresses_path, notice: 'You have created book successfully.'
     else
