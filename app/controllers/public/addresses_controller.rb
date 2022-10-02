@@ -26,7 +26,7 @@ class Public::AddressesController < ApplicationController
   def update
     @address = Address.find(params[:id])
     if @address.update(address_params)
-      redirect_to address_path(@address.id)
+      redirect_to addresses_path
     else
       render :edit
     end
