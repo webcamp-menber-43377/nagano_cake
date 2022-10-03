@@ -6,16 +6,24 @@
       <%= render 'list', genres: @genres %>
     </div>
 
-    <div class="col-md-2 offset-md-1">
-      <%= image_tag @item.image %>
-    </div>
+    <div class="col-md-8 offset-md-1">
+      <div class="row">
+        <div class="col-md-3">
+          <%= image_tag @item.image %>
+        </div>
 
-    <div class="col-md-5 offset-md-1">
-      <h4><%= @item.name %></h4>
-      <%= @item.introduction %><br>
-      ￥<%= (@item.price * 1.1).round.to_s(:delimited) %>(税込み)<br>
-      <!--個数選択（プルダウン）-->
-      <!--カートに入れる（緑ボタン）-->
+        <div class="col-md-7 offset-md-2">
+          <%= form_with model: @cart_item do |f| %>
+            <h4><%= @item.name %></h4>
+            <%= @item.introduction %><br>
+            ￥<%= (@item.price * 1.1).round.to_s(:delimited) %>(税込み)<br>
+            <!--個数選択（プルダウン）-->
+            <%= f.select :amount, *[1..10] %>
+            <!--カートに入れる（緑ボタン）-->
+            <%= f.submit "カートに入れる", class: "btn btn-sm btn-success" %>
+          <% end %>
+        </div>
+      </div>
     </div>
 
   </div>
