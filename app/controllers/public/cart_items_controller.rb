@@ -1,20 +1,14 @@
 class Public::CartItemsController < ApplicationController
   def index
-    # @cart_item = CartItem.where(customer_id: current_customer.id)
     @cart_items = current_customer.cart_items.all
     ## カートに入ってる商品の合計金額
-    @total=0
-    # @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
+    @total = 0
   end
 
   ## カート商品を追加・保存
   def create
     # binding.pry
-    # @item = Item.find(cart_item_params[:item_id])
     @cart_item = current_customer.cart_items.new(cart_item_params)
-    # @cart_item = CartItem.new(cart_item_params)
-    # @cart_item.customer_id = current_customer.id
-    # @cart_item.item_id = params(:id)
     ## もし元々カート内に「同じ商品」がある場合、「数量を追加」更新・保存する
       ##元々カート内にあるもの「item_id」
       ##今追加した  params[:cart_item][:item_id]
@@ -37,14 +31,23 @@ class Public::CartItemsController < ApplicationController
   end
 
   def destroy
+    @cart_item = current_customer.cart_items.find(params[:id])
+    @cart_item.destroy
+    redirect_to cart_items_path
   end
 
   def destroy_all
+    @cart_items = current_customer.cart_items.all
+    @cart_items.destroy_all
+    redirect_to cart_items_path
   end
 
   private
   # ストロングパラメータ
   def cart_item_params
-      params.require(:cart_item).permit(:item_id, :customer_id, :amount)
+    params.require(:cart_item).permit(:item_id, :customer_id, :amount)
+  end
+  def item_params
+    params.require(:item).permit(:genre_id, :name, :introduction, :price, :is_active, :image)
   end
 end
