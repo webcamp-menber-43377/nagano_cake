@@ -25,10 +25,12 @@ Rails.application.routes.draw do
     get "/customers/unsubscribe" => "customers#unsubscribe"
     # ↓ 顧客の退会処理(ステータスの更新)
     patch "/customers/withdraw" => "customers#withdraw"
+    delete "/cart_items/destroy_all" => "cart_items#destroy_all"
+    post "/orders/confirm" => "orders#comfirm"
 
     resources :orders, only: [:new, :confirm, :complete, :create, :index, :show]
     resources :items, only: [:index, :show]
-    resources :cart_items, only: [:index, :update, :destroy, :destroy_all, :create]
+    resources :cart_items, only: [:index, :update, :destroy, :create]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 

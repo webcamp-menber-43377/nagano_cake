@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   # has_many :items, dependent: :destroy
 
   belongs_to :genre
-  has_many :cart_items
+  has_many :cart_items, dependent: :destroy
 
   ## 消費税を求めるメソッド
   def with_tax_price
