@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     # ↓ 顧客の退会処理(ステータスの更新)
     patch "/customers/withdraw" => "customers#withdraw"
     delete "/cart_items/destroy_all" => "cart_items#destroy_all"
-    post "/orders/confirm" => "orders#comfirm"
+    post "/orders/confirm" => "orders#confirm"
 
     resources :orders, only: [:new, :complete, :create, :index, :show]
     resources :items, only: [:index, :show]
