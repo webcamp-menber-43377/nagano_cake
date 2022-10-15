@@ -6,6 +6,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
+    @cart_items = current_customer.cart_items.all
+    @total = 0
+
     @order = Order.new(order_params)
     if params[:order][:address_option] == '0'
       @order.name = current_customer.last_name + current_customer.first_name
@@ -30,6 +33,10 @@ class Public::OrdersController < ApplicationController
         render :new
       end
     end
+
+    if @order.save
+      redirect_to orders_complete_path
+    end
   end
 
   def complete
@@ -37,6 +44,7 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @order.save
   end
 
   def index
