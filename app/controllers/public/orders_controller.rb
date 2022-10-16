@@ -33,10 +33,6 @@ class Public::OrdersController < ApplicationController
         render :new
       end
     end
-
-    if @order.save
-      redirect_to orders_complete_path
-    end
   end
 
   def complete
@@ -44,10 +40,28 @@ class Public::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.save
+    @cart_items = current_customer.cart_items.all
+    if @order.save
+      @cart_items.each do |cart_item|
+        order_detail = OrderDetail.new
+        order_detail.item_id = cart_item.item.id
+        order_detail.orders_id = @order.id
+        order_detail.price = cart_item.item.price
+        order_detail.amount = cart_item.amount
+
+        order_detail.save
+      end
+      @cart_items.destroy_all
+      redirect_to orders_complete_path
+
+    else
+      @total = 0
+      render :confirm
+    end
   end
 
   def index
+    @orders = Order.all
   end
 
   def show
@@ -56,6 +70,6 @@ class Public::OrdersController < ApplicationController
   private
   # ストロングパラメータ
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :payment_method, :status)
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :payment_method)
   end
 end
