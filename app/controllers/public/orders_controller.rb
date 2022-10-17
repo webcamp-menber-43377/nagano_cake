@@ -35,41 +35,48 @@ class Public::OrdersController < ApplicationController
     end
   end
 
-  def complete
-  end
-
   def create
     @order = Order.new(order_params)
     @cart_items = current_customer.cart_items.all
-    if @order.save
+    if @order.save!
       @cart_items.each do |cart_item|
         order_detail = OrderDetail.new
         order_detail.item_id = cart_item.item.id
-        order_detail.orders_id = @order.id
+        order_detail.order_id = @order.id
         order_detail.price = cart_item.item.price
         order_detail.amount = cart_item.amount
 
-        order_detail.save
+        order_detail.save!
       end
       @cart_items.destroy_all
       redirect_to orders_complete_path
-
     else
       @total = 0
       render :confirm
     end
   end
 
+  def complete
+  end
+
   def index
     @orders = Order.all
+    # @order = Order.find(params[:id])
+    # @order_detail = OrderDetail.find(params[:order_id][:item_id])
   end
 
   def show
+    @order = Order.find(params[:id])
+    # @order_detail.id = @order.order_detail.id
+    # @total = 0
   end
 
   private
   # ストロングパラメータ
   def order_params
     params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :payment_method)
+  end
+  def order_detail_params
+    params.require(:order_detail).permit(:order_id, :item_id, :price, :amount, :making_status)
   end
 end
