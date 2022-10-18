@@ -61,14 +61,10 @@ class Public::OrdersController < ApplicationController
 
   def index
     @orders = Order.all
-    # @order = Order.find(params[:id])
-    # @order_detail = OrderDetail.find(params[:order_id][:item_id])
   end
 
   def show
     @order = Order.find(params[:id])
-    # @order_detail.id = @order.order_detail.id
-    # @total = 0
   end
 
   private
