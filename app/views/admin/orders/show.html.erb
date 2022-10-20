@@ -7,31 +7,63 @@
       <div class="col-md-12">
         <h2>注文履歴詳細</h2>
 
-        <%= form_with model: @order_detail, url: admin_order_detail_path(@order_detail.id) do |f| %>
-          <div class="form-group">
-            <label for="order_name">購入者</label>
-            <%= link_to @customer.last_name + @customer.first_name, admin_customer_path(customer.id) %>
-          </div>
-          <div class="form-group">
-            <label for="order_date">注文日</label>
-            <%= order_detail.created_at %>
-          </div>
-          <div class="form-group">
-            <label for="order_address">配送先</label>
-            <%= order.postal_code %> <%= order.address %><br>
-            <%= order.name %>
-          </div>
-          <div class="form-group">
-            <label for="order_payment_method">支払方法</label>
-            <%= order.payment_method %>
-          </div>
+        <!--<%#= form_with model: @order_detail, url: admin_order_detail_path(@order_detail.id) do |f| %>-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="order_name">購入者</label>-->
+        <!--    <%#= link_to @customer.last_name + @customer.first_name, admin_customer_path(customer.id) %>-->
+        <!--  </div>-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="order_date">注文日</label>-->
+        <!--    <%#= order_detail.created_at %>-->
+        <!--  </div>-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="order_address">配送先</label>-->
+        <!--    <%#= order.postal_code %> <%#= order.address %><br>-->
+        <!--    <%#= order.name %>-->
+        <!--  </div>-->
+        <!--  <div class="form-group">-->
+        <!--    <label for="order_payment_method">支払方法</label>-->
+        <!--    <%#= order.payment_method %>-->
+        <!--  </div>-->
 
           <!--↓追記中-->
-          <div class="form-group">
-            <label for="order_status">注文ステータス</label>
-            <%= f.collection_select :status, Order.all, :id, :name, {include_blank: "入金待ち", prompt: false} %>
-          </div>
-        <% end %>
+        <!--  <div class="form-group">-->
+        <!--    <label for="order_status">注文ステータス</label>-->
+        <!--    <%#= f.collection_select :status, Order.all, :id, :name, {include_blank: "入金待ち", prompt: false} %>-->
+        <!--  </div>-->
+        <!--<%# end %>-->
+
+        <table  class="table table-hover table-inverse">
+          <tr>
+            <th>購入者</th>
+            <td><%= link_to @order.customer.last_name + @order.customer.first_name, admin_customer_path(:id) %></td>
+          </tr>
+          <tr>
+            <th>注文日</th>
+            <td><%= @order.created_at %></td>
+          </tr>
+          <tr>
+            <th>配送先</th>
+            <td>
+              <%= @order.postal_code %>&emsp;<%= @order.address %><br>
+              <%= @order.name %>
+            </td>
+          </tr>
+          <tr>
+            <th>支払方法</th>
+            <td><%= @order.payment_method_i18n %></td>
+          </tr>
+          <tr>
+            <th>注文ステータス</th>
+            <td><%#= @order.status_i18n %>
+              <%= form_with model: @order, url: admin_order_path, method: :patch, local: true do |f| %>
+                <%= f.select :status, Order.status_i18n.invert, {prompt: false} %>
+                <%= f.submit "更新", class: "btn btn-sm btn-success" %>
+              <% end %>
+            </td>
+
+          </tr>
+        </table>
       </div>
 
       <div class="col-md-8">
@@ -48,14 +80,23 @@
           </thead>
 
           <tbody>
-            <% @items.each do |item| %>
+            <% @order.order_details.each do |order_detail| %>
               <tr>
                 <!--商品名-->
-                <td>XXX</td>
+                <td><%= order_detail.item.name %></td>
                 <!--単価（税込）-->
+                <td><%= order_detail.item.with_tax_price.round.to_s(:delimited) %></td>
                 <!--数量-->
+                <td><%= order_detail.amount %></td>
                 <!--小計-->
+                <td><%= order_detail.subtotal.round.to_s(:delimited) %></td>
                 <!--製作ステータス／プルダウン-->
+                <td><%#= order_detail.making_status_i18n %>
+                  <%= form_with model: order_detail, url: admin_order_path, method: :patch, local: true do |f| %>
+                    <%= f.select :making_status, order_detail.making_status_i18n.invert %>
+                    <%= f.submit '更新', class: "btn btn-sm btn-success" %>
+                  <% end %>
+                </td>
                 <!--更新ボタン-->
               </tr>
             <% end %>
@@ -66,17 +107,23 @@
       <div class="col-md-4">
         <table>
           <tbody>
-            <!--商品合計-->
             <tr>
-              <td></td>
+              <th>商品合計</th>
+                <% @total = 0 %>
+              <td>
+                <% @order.order_details.each do|order_detail| %>
+                  <% @total += order_detail.item.with_tax_price * order_detail.amount %>
+                <% end %>
+                <%= @total.round.to_s(:delimited) %>
+              </td>
             </tr>
-            <!--送料-->
             <tr>
-              <td></td>
+              <th>送料</th>
+              <td><%= @order.shipping_cost %></td>
             </tr>
-            <!--請求金額合計-->
             <tr>
-              <td></td>
+              <th>請求金額合計&emsp;</th>
+              <td><%= @order.total_payment.round.to_s(:delimited) %></td>
             </tr>
           </tbody>
         </table>
