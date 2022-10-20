@@ -9,10 +9,10 @@
       </div>
 
       <div class="row justify-content-between">
-        <%= form_with model: @customer, url: admin_customer_path(@item.id) do |f| %>
+        <%= form_with model: @customer, url: admin_customer_path(@customer.id) do |f| %>
           <div class="form-group">
             <label for="customer_id">会員ID</label>
-            <%= customer.id %>
+            <%= @customer.id %>
           </div>
           <div class="form-group">
             <label for="customer_name">氏名</label>
@@ -41,11 +41,11 @@
             <%= f.email_field :email %>
           </div>
           <div class="form-group">
-            <label for="customer_is_active">会員ステータス</label>
-            <%= f.radio_button :is_active, true %>
-            <%= f.label :is_active, "有効" %>
-            <%= f.radio_button :is_active, false %>
-            <%= f.label :is_active, "退会" %>
+            <label for="customer_is_deleted">会員ステータス</label>
+            <%= f.radio_button :is_deleted, true %>
+            <%= f.label :is_deleted, "退会" %>
+            <%= f.radio_button :is_deleted, false %>
+            <%= f.label :is_deleted, "有効" %>
           </div>
           <div class="form-group">
             <%= f.submit '変更を保存', class: "btn btn-sm btn-success" %>
