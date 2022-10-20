@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-md-8 offset-md-1">
-      <h2>商品一覧</h2> (全X件)
+      <h2>商品一覧</h2> (全<%= @items.count %>件)
       <div class="row">
         <% @items.each do |item| %>
           <div class="col-md-3">

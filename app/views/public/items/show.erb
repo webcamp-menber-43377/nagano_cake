@@ -1,10 +1,35 @@
+<!--商品詳細-->
+
 <div class="container">
   <div class="row">
     <div class="col-md-3">
       <%= render 'list', genres: @genres %>
     </div>
-  </div>
-  <div class="col-md-8 offset-md-1">
-    <h2>商品詳細</h2>
+
+    <div class="col-md-8 offset-md-1">
+      <div class="row">
+        <div class="col-md-3">
+          <%= image_tag @item.image, size: "200x200" %>
+        </div>
+
+        <div class="col-md-7 offset-md-1">
+          <%# if @item.is_active == TRUE %>
+            <%#= form_with model: @cart_item do |f| %>
+            <%= form_with(model: @cart_item, url: cart_items_path, method: :post, local: true)do |f| %>
+              <h4><%= @item.name %></h4>
+              <%= @item.introduction %><br>
+              ￥<%= (@item.price * 1.1).round.to_s(:delimited) %>(税込み)<br>
+              <!--個数選択（プルダウン）-->
+              <%= f.select :amount, *[1..10] %>
+              <!--カートに入れる（緑ボタン）-->
+              <%= f.submit "カートに入れる", class: "btn btn-sm btn-success" %>
+              <%= f.hidden_field :item_id, value: @item.id %>
+
+            <% end %>
+          <%# end %>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -48,7 +48,7 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
       ## 電話番号
       t.string :telephone_number,     null: false
       ## 退会ステータス
-      t.boolean :is_active,           null: false, default: true
+      t.boolean :is_deleted,          null: false, default: false
 
       t.timestamps null: false
     end

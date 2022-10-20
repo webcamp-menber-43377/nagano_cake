@@ -46,10 +46,10 @@
                 <tr>
                   <td>会員ステータス</td>
                   <td>
-                    <% if @customer.is_active == true %>
-                    有効
-                    <% else %>
+                    <% if @customer.is_deleted == true %>
                     退会
+                    <% else %>
+                    有効
                     <% end %>
                   </td>
                 </tr>
@@ -58,7 +58,7 @@
           </div>
           <div class="row justify-content-center">
             <%= link_to '編集する', edit_admin_customer_path, class: "btn btn-sm btn-success" %>
-            <%= link_to '注文履歴一覧を見る', public_orders_path_path, class: "btn btn-sm btn-primary" %>
+            <%= link_to '注文履歴一覧を見る', admin_root_path(@customer.id), class: "btn btn-sm btn-primary" %>
           </div>
         </div>
       </div>
