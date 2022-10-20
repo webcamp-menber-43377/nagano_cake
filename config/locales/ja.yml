@@ -10,3 +10,10 @@ ja:
         payment_method:
           credit_card: "クレジットカード"
           transfer: "銀行振込"
+      order_detail:
+        making_status:
+          impossible_manufacture: "製作不可"
+          waiting_manufacture: "製作待ち"
+          manufacturing: "製作中"
+          finish: "製作完了"
+
